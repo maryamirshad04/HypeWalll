@@ -110,7 +110,3 @@ def get_comments_api(board_id):
         return jsonify({'error': 'Board not found'}), 404
 
     return jsonify(get_comments(board_id)), 200
-
-
-if __name__ == '__main__':
-    app.run(debug=True, port=5000)
