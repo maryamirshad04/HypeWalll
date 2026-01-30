@@ -4,4 +4,3 @@ python-dotenv==1.0.0
 firebase-admin==6.2.0
 google-cloud-firestore==2.13.0
 pyrebase4==4.6.1
-uuid==1.30
