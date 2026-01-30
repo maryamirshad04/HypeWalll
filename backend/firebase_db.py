@@ -1,9 +1,23 @@
 # firebase_db.py
+import os
 import firebase_admin
 from firebase_admin import credentials, firestore
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
+
+# Build credentials dictionary from environment variables
+cred_dict = {
+    "type": os.environ["FIREBASE_TYPE"],
+    "project_id": os.environ["FIREBASE_PROJECT_ID"],
+    "private_key_id": os.environ["FIREBASE_PRIVATE_KEY_ID"],
+    "private_key": os.environ["FIREBASE_PRIVATE_KEY"].replace("\\n", "\n"),
+    "client_email": os.environ["FIREBASE_CLIENT_EMAIL"]
+}
 
 # Initialize Firebase
-cred = credentials.Certificate("firebase_key.json")
+cred = credentials.Certificate(cred_dict)
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()

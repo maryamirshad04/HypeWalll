@@ -1,9 +1,16 @@
+# app.py
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import uuid
 import random
 import string
 from datetime import datetime
+from dotenv import load_dotenv  # <-- added
+import os
+
+# Load environment variables from .env at the very start
+load_dotenv()
+
 from firebase_db import (
     create_board,
     get_board as get_board_db,
@@ -20,6 +27,7 @@ CORS(app)
 def generate_code():
     """Generate a 6-character alphanumeric code"""
     return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+
 
 @app.route('/api/boards', methods=['POST'])
 def create_board_api():
@@ -45,6 +53,7 @@ def create_board_api():
     create_board(board_data)
     return jsonify(board_data), 201
 
+
 @app.route('/api/boards/code/<code>', methods=['GET'])
 def get_board_by_code(code):
     board = get_board_by_join_code(code.upper())
@@ -56,6 +65,7 @@ def get_board_by_code(code):
             'join_code': board['join_code']
         }), 200
     return jsonify({'error': 'Board not found'}), 404
+
 
 @app.route('/api/boards/<board_id>', methods=['GET'])
 def get_board_api(board_id):
