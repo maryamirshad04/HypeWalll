@@ -11,7 +11,7 @@ import os
 # Load environment variables from .env at the very start
 load_dotenv()
 
-from firebase_db import (
+from .firebase_db import (
     create_board,
     get_board as get_board_db,
     get_board_by_join_code,
@@ -112,8 +112,7 @@ def get_comments_api(board_id):
     return jsonify(get_comments(board_id)), 200
 
 # Export for Vercel
+app = app # Vercel will automatically find 'app'
+
 if __name__ == "__main__":
     app.run(debug=True)
-else:
-    # This makes sure Vercel can find the app
-    application = app
