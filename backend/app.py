@@ -11,7 +11,7 @@ import os
 # Load environment variables from .env at the very start
 load_dotenv()
 
-from .firebase_db import (
+from firebase_db import (
     create_board,
     get_board as get_board_db,
     get_board_by_join_code,
